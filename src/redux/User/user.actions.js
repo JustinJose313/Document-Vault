@@ -27,6 +27,9 @@ export const signUpUserStart = (userCredentials) => ({
   payload: userCredentials,
 });
 
-
+export const loadingStart = (bool) => ({
+  type: userTypes.LOADING,
+  payload: bool
+})
 
 

@@ -5,7 +5,7 @@ import {
   handleUserProfile,
   getCurrentUser,
 } from "./../../firebase/utils";
-import { signInSuccess, signOutUserSuccess } from "./user.actions";
+import { loadingStart, signInSuccess, signOutUserSuccess } from "./user.actions";
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
@@ -29,6 +29,7 @@ export function* emailSignIn({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
+    
   } catch (err) {
     // console.log(err);
   }

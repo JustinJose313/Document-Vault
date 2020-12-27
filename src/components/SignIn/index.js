@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { emailSignInStart } from "../../redux/User/user.actions";
+import {BeatLoader} from 'react-spinners'
 import { motion } from "framer-motion";
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -13,10 +14,12 @@ const SignIn = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
   useEffect(() => {
     if (currentUser) {
       resetForm();
+      setLoading(false);
       history.push("/");
     }
   }, [currentUser]);
@@ -27,6 +30,7 @@ const SignIn = () => {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     dispatch(emailSignInStart({ email, password }));
   };
@@ -35,7 +39,7 @@ const SignIn = () => {
       className="container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: .5 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="header">
         <h1>Sign In</h1>
@@ -61,7 +65,8 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Log In</button>
+
+        <button type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Log In"}</button>
       </form>
     </motion.div>
   );

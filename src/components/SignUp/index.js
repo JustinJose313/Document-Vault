@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUpUserStart } from "../../redux/User/user.actions";
 import { motion } from "framer-motion";
+import {BeatLoader} from 'react-spinners'
+
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -16,9 +18,12 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (currentUser) {
       resetForm();
+      setLoading(false);
       history.push("/");
     }
   }, [currentUser]);
@@ -32,7 +37,7 @@ const SignUp = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     dispatch(
       signUpUserStart({ displayName, email, password, confirmPassword })
     );
@@ -90,7 +95,8 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Register</button>
+        <button type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Register"}</button>
+
       </form>
     </motion.div>
   );
