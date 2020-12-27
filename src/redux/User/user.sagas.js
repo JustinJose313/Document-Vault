@@ -5,12 +5,7 @@ import {
   handleUserProfile,
   getCurrentUser,
 } from "./../../firebase/utils";
-import {
-  resetPasswordSuccess,
-  signInSuccess,
-  signOutUserSuccess,
-  userError,
-} from "./user.actions";
+import { signInSuccess, signOutUserSuccess } from "./user.actions";
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {

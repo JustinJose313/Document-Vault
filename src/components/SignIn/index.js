@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { emailSignInStart } from "../../redux/User/user.actions";
-
+import { motion } from "framer-motion";
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
@@ -31,7 +31,12 @@ const SignIn = () => {
     dispatch(emailSignInStart({ email, password }));
   };
   return (
-    <div className='container'>
+    <motion.div
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: .5 }}
+    >
       <div className="header">
         <h1>Sign In</h1>
         <a onClick={() => history.goBack()}>Go Back</a>
@@ -56,9 +61,9 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Login in</button>
+        <button type="submit">Log In</button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

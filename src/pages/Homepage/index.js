@@ -5,14 +5,15 @@ import {
   signOutUserStart,
 } from "../../redux/User/user.actions";
 import { useDispatch, useSelector } from "react-redux";
-import './homepage.scss'
+import { motion } from "framer-motion";
+import "./homepage.scss";
 
 const mapState = (state) => ({
   currentUser: state.user.currentUser,
 });
 const Homepage = () => {
   const { currentUser } = useSelector(mapState);
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,24 +24,35 @@ const Homepage = () => {
     dispatch(signOutUserStart());
   };
   return (
-    <div className='container'>
+    <motion.div
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{duration: 1}}
+    >
       <h3>Home Page</h3>
       {!currentUser && (
         <>
-          <h1 style={{marginBottom: '50px'}}>Hello , <span>Guest</span> </h1>
-          
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+          <h1 style={{ marginBottom: "50px" }}>
+            Hello , <span>Guest</span>{" "}
+          </h1>
+
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
         </>
       )}
       {currentUser && (
         <>
-          <h1 style={{marginBottom: '50px'}}>Hello , <span>{currentUser.displayName}</span> </h1>
+          <h1 style={{ marginBottom: "50px" }}>
+            Hello , <span>{currentUser.displayName}</span>{" "}
+          </h1>
           <button onClick={() => signOut()}>Sign Out</button>
-          <button onClick={() => history.push(`/vault/${currentUser.id}`)}>Go to Vault</button>
+          <button onClick={() => history.push(`/vault/${currentUser.id}`)}>
+            Go to Vault
+          </button>
         </>
       )}
-    </div>
+    </motion.div>
   );
 };
 

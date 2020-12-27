@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUpUserStart } from "../../redux/User/user.actions";
+import { motion } from "framer-motion";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -38,7 +39,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className='container'>
+    <motion.div
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="header">
         <h1>Sign Up</h1>
         <a onClick={() => history.goBack()}>Go Back</a>
@@ -86,7 +92,7 @@ const SignUp = () => {
         <br />
         <button type="submit">Register</button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

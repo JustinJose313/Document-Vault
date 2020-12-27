@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addVaultStart } from "../../redux/Vault/vault.actions";
-import CKEditor from 'ckeditor4-react'
+import CKEditor from "ckeditor4-react";
+import { motion } from "framer-motion";
 import Document from "../Document";
 
 const AddDocument = ({ docs }) => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -28,7 +29,12 @@ const AddDocument = ({ docs }) => {
     resetform();
   };
   return (
-    <div className="container">
+    <motion.div
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
       <div className="header">
         <h1>Add Document</h1>
         <a onClick={() => history.goBack()}>Go Back</a>
@@ -43,20 +49,21 @@ const AddDocument = ({ docs }) => {
         />
         <br />
         <label>Add Notes</label>
-        <CKEditor
-          onChange={(e) => setNotes(e.editor.getData())}
-        />
+        <CKEditor onChange={(e) => setNotes(e.editor.getData())} />
         <br />
         <button type="submit">Add Document</button>
       </form>
 
       <div className="vaultWrap">
         {Array.isArray(docs) &&
-          docs.slice(0).reverse().map((doc, index) => {
-            return <Document key={index} data={doc} />;
-          })}
+          docs
+            .slice(0)
+            .reverse()
+            .map((doc, index) => {
+              return <Document key={index} data={doc} />;
+            })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
