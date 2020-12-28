@@ -95,7 +95,7 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <br />
-        <button type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Register"}</button>
+        <button disabled={loading} type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Register"}</button>
 
       </form>
     </motion.div>

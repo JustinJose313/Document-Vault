@@ -66,7 +66,7 @@ const SignIn = () => {
         />
         <br />
 
-        <button type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Log In"}</button>
+        <button disabled={loading} type="submit">{loading ? <BeatLoader color="#ffffff" loading/> : "Log In"}</button>
       </form>
     </motion.div>
   );
